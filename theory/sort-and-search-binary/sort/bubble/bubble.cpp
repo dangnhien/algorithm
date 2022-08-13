@@ -37,7 +37,6 @@ void printArray(int arr[], int n)
 
 int main()
 {
-
     int arr[]={1,9,8,7,1,2,5,4,9};
     int n=sizeof(arr)/sizeof(arr[0]);
     bubbleSort(arr, n);
