@@ -1,4 +1,10 @@
 /*
+    Dang Nhien
+    29/8/2022
+    C++
+*/
+
+/*
 Chúng ta sẽ tìm hiểu các vấn đề cơ bản sau:
 
     Cài đặt danh sách (Khai báo)
@@ -18,7 +24,7 @@ Chúng ta sẽ tìm hiểu các vấn đề cơ bản sau:
 
 using namespace std;
 
-//(elementType này là kiểu dữ liệu tổng quan, khi làm nó sẽ là kiểu int, float hay kiểu cấu trúc sinh viên).
+// elementType này là kiểu dữ liệu tổng quan, khi làm nó sẽ là kiểu int, float hay kiểu cấu trúc sinh viên.
 typedef int ElementType;
 
 struct Node
@@ -33,35 +39,24 @@ typedef Node *Position;
 
 typedef Position List;
 
-// Khởi tạo danh sách rỗng
-void Make_Null_List(List *Header)
-{
-    (*Header) = (Node *)malloc(sizeof(Node));
-    (*Header)->Next = NULL;
-}
-
-/*
-//C
-void Make_Null_List(List *Header) {
-    (*Header)=(Node*)malloc(sizeof(Node));
-    (*Header)->Next= NULL;
-}
-
-//C++
+// Create list empty.
 void Make_Null_List(List &Header)
 {
     Header = new Node[sizeof(Node)];
     Header->Next = NULL;
 }
-*/
 
-// Check danh sách rỗng, nếu rỗng trả về 1, không rỗng trả về 0
+/*
+    Check list empty:
+        if empty --> return  1
+        else not empty --> return 0 
+*/
 int Empty_List(List L)
 {
     return (L->Next == NULL);
 }
 
-// Trả về đầu danh sách
+// Return value first list
 Position First_List(List L)
 {
     return L;
@@ -81,41 +76,43 @@ Position Next_List(Position P, List L)
     return P->Next;
 }
 
-// Chèn phần tử X vào danh sách L tại vị trí P
+// Insert element X into list L at location P
 void Insert_List(ElementType X, Position P, List &L)
 {
     Position Temp; //Create node new
-    Temp = (Node *)malloc(sizeof(Node)); //memory allocation node new. This node pointed to by Temp
-    Temp->Element = X; //assign the appropriate value 
+    Temp = new Node[sizeof(Node)]; // Memory allocation node new. This node pointed to by Temp
+    Temp->Element = X; // Assign the appropriate value 
     Temp->Next = P->Next;
     P->Next = Temp;
 }
 
-void InsertList1(ElementType X, int P1, List *L)
+void InsertList1(ElementType X, int P1, List &L)
 {
     Position P;
-    P = *L;
+
+    P = L;
     while ((P->Next != NULL) && (P1 > 1))
     {
         P = P->Next;
         P1--;
     }
-    Insert_List(X, P, *L);
+
+    Insert_List(X, P, L);
 }
 
-// Chèn phần tử X vào đầu danh sách
+// Insert element X into first list 
 void Insert_First_List(ElementType X, List &L)
 {
     Insert_List(X, First_List(L), L);
 }
 
-// Chèn X vào cuối danh sách
+// Insert element X into end list
 void Insert_End_List(ElementType X, List &L)
 {
     Insert_List(X, End_List(L), L);
 }
 
-// Xóa phần tử thứ P trong danh sách L
+// Delete element P in list L
 void Delete_List(Position P, List &L)
 {
     Position Temp;
@@ -127,7 +124,7 @@ void Delete_List(Position P, List &L)
     }
 }
 
-//Định vị vị trí của X trong danh sach L
+// Location element X in list L
 Position Locate(ElementType X, List L)
 {
     Position P = L;
@@ -139,42 +136,31 @@ Position Locate(ElementType X, List L)
     return P;
 }
 
-/*
-Position Locate(ElementType X, List L) {
-    Position P;
-    int Found = 0;
-    P = L;
-    while ((P->next != NULL) && (Found == 0))
-        if (P->next->element == X) Found = 1;
-        else P = P->next;
-    return P;
-}
-*/
 
-// Trả về giá trị tại vị trí P trong danh sách L
+// Value element at location P in list L
 ElementType Retrieve(Position P, List L)
 {
     if (P->Next != NULL)
         return P->Next->Element;
 }
-
-void Read_List(List &L) // Nhập danh sách vào
+// Enter list 
+void Read_List(List &L) 
 {
     int n, i = 0;
-    cout << "\tNhap so phan tu cua danh sach: ";
+    cout << "\tEnter number of element of list: ";
     cin >> n;
 
     ElementType X;
     while (i < n)
     {
-        cout << "\t-Nhap phan tu thu " << i + 1 << " ";
+        cout << "\t-Enter element number:  " << i + 1 << " ";
         cin >> X;
         Insert_End_List(X, L);
         i++;
     }
 }
 
-// In danh sách ra
+// Printf list
 void Print_List(List &L)
 {
     Position P = First_List(L);
@@ -185,7 +171,7 @@ void Print_List(List &L)
     }
 }
 
-// In danh sách nghịch đảo ra
+// Printf list reserver
 void Print_Rev_List(List L)
 {
 
@@ -202,7 +188,7 @@ void Print_Rev_List(List L)
     }
 }
 
-// Lọc xóa các phần tử trùng nhau
+// Filter elements sample
 void Distinct(List &L)
 {
     Position P, Q;
@@ -222,7 +208,7 @@ void Swap(Position &x1, Position &x2)
     x2->Next->Element = Temp;
 }
 
-// sắp xếp danh sách theo thứ tự tăng dần
+// Sort list increase
 void Sort(List &L)
 {
     Position P, Q;
@@ -234,7 +220,7 @@ void Sort(List &L)
                 Swap(P, Q);
 }
 
-//Đếm số phần tử trong danh sách liên kết
+// Counter element in list
 int Element_Counter(List L)
 {
     int numberElement = 0;
@@ -248,7 +234,6 @@ int Element_Counter(List L)
 }
 
 
-
 int main()
 {
     system("cls");
@@ -257,8 +242,7 @@ int main()
     ElementType X;
     Position P;
 
-    // Make_Null_List(L);//trong C++, sử dụng tham chiếu
-    Make_Null_List(&L);
+    Make_Null_List(L);
 
     Read_List(L);
     cout << "\n\t-> 1_List just entered: \n";
