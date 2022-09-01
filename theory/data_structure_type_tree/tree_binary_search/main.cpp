@@ -75,10 +75,16 @@ int main()
 
     cout<<"\nHight min of tree: "<<minDepth(t)<<"\n";
 
-    int node_need_find_hight;
-    cout<<"\nEnter node need find maxDepth: ";cin>>node_need_find_hight;
-    Node *p = searchNode(t, node_need_find_hight);
-    cout<<"\nHight max of node( tree child): "<<maxDepth(p)<<"\n";
+    // int node_need_find_hight;
+    // cout<<"\nEnter node need find maxDepth: ";cin>>node_need_find_hight;
+    // Node *p = searchNode(t, node_need_find_hight);
+    // cout<<"\nHight max of node( tree child): "<<maxDepth(p)<<"\n";
+
+    int value_node_need_delete;
+    cout<<"\nInput value node need delete: ";
+    cin>>value_node_need_delete;
+    delete_node(t, value_node_need_delete);
+    left_node_right(t);
 
     return 0;
 }

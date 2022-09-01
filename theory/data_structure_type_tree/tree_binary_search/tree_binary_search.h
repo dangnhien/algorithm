@@ -49,4 +49,6 @@ int minDepth(Tree root);
 
 Node *searchNode(Tree root, int x);
 
+void delete_node(Tree &root, int x);
+
 #endif

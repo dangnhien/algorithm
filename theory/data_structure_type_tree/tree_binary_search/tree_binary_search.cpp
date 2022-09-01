@@ -322,3 +322,99 @@ Node *searchNode(Tree root, int x)
     Clear a node in binary search tree
     Explain --> file pdf.
 */
+Node *getS(Node *p)
+{
+    Node *current = p->right;
+    Node *parent = NULL;
+    Node *s = NULL;
+
+    while (current != NULL)
+    {
+        parent = s;
+        s = current;
+        current = current->left;
+    }
+
+    if (s != p->right)
+    {
+        (p->right)->left = s->right;
+        s->right = p->right;
+    }
+
+    return s;
+}
+
+void delete_node(Tree &root, int x)
+{
+    if (root)
+    {
+        Node *current = root;
+        Node *parent = root;
+        bool isLeft = false;
+        while (current->data != x)
+        {
+            parent = current;
+            if (current->data > x)
+            {
+                isLeft = true;
+                current = current->left;
+            }
+            else
+            {
+                current = current->right;
+            }
+        }
+
+        if (current) // current != NULL
+        {
+            // TH1:
+            if (current->left == NULL && current->right == NULL)
+            {
+                if (current == root)
+                    root = NULL;
+                else if (isLeft)
+                    parent->left = NULL;
+                else
+                    parent->right = NULL;
+            }
+
+            // TH2:
+            if (current->left == NULL)
+            {
+                if (current == root)
+                    root = current->right;
+                else if (isLeft)
+                    parent->left = current->right;
+
+                parent->right = current->right;
+            }
+
+            if (current->right == NULL)
+            {
+                if (current == root)
+                    root = current->left;
+                else if (isLeft)
+                    parent->left = current->left;
+
+                parent->right = current->left;
+            }
+            else if (current->left != NULL && current->right != NULL)
+            {
+                Node *temp = getS(current);
+                if (current == root)
+                    root = temp;
+                else if (isLeft)
+                    parent->left = temp;
+                else
+                    parent->right = temp;
+                temp->left = current->left;
+            }
+
+            delete current;
+        }
+        else
+            cout << "\nDelete error!";
+    }
+}
+
+
