@@ -1,0 +1,6 @@
+8 cấu trúc dữ liệu cơ bản mà lập trình viện nào cũng phải biết:
++ Độ phức tạp
+- Array + linked list 
+- Stack + Queue
+- HashTable( bảng băm) + Set
+- Graph + Tree
